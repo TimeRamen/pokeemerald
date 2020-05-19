@@ -893,7 +893,7 @@ static const struct BgTemplate sInfoScreen_BgTemplate[] =
 
 static const struct WindowTemplate sInfoScreen_WindowTemplates[] =
 {
-    [WIN_INFO] = 
+    [WIN_INFO] =
     {
         .bg = 2,
         .tilemapLeft = 0,
@@ -903,7 +903,7 @@ static const struct WindowTemplate sInfoScreen_WindowTemplates[] =
         .paletteNum = 0,
         .baseBlock = 1,
     },
-    [WIN_FOOTPRINT] = 
+    [WIN_FOOTPRINT] =
     {
         .bg = 2,
         .tilemapLeft = 25,
@@ -913,7 +913,7 @@ static const struct WindowTemplate sInfoScreen_WindowTemplates[] =
         .paletteNum = 15,
         .baseBlock = 641,
     },
-    [WIN_CRY_WAVE] = 
+    [WIN_CRY_WAVE] =
     {
         .bg = 0,
         .tilemapLeft = 0,
@@ -923,7 +923,7 @@ static const struct WindowTemplate sInfoScreen_WindowTemplates[] =
         .paletteNum = 8,
         .baseBlock = 645,
     },
-    [WIN_VU_METER] = 
+    [WIN_VU_METER] =
     {
         .bg = 2,
         .tilemapLeft = 18,
@@ -960,7 +960,7 @@ static const struct BgTemplate sNewEntryInfoScreen_BgTemplate[] =
 
 static const struct WindowTemplate sNewEntryInfoScreen_WindowTemplates[] =
 {
-    [WIN_INFO] = 
+    [WIN_INFO] =
     {
         .bg = 2,
         .tilemapLeft = 0,
@@ -970,7 +970,7 @@ static const struct WindowTemplate sNewEntryInfoScreen_WindowTemplates[] =
         .paletteNum = 0,
         .baseBlock = 1,
     },
-    [WIN_FOOTPRINT] = 
+    [WIN_FOOTPRINT] =
     {
         .bg = 2,
         .tilemapLeft = 25,
@@ -1012,21 +1012,21 @@ static const u8 sLetterSearchRanges[][4] =
 
 static const struct SearchMenuTopBarItem sSearchMenuTopBarItems[SEARCH_TOPBAR_COUNT] =
 {
-    [SEARCH_TOPBAR_SEARCH] = 
+    [SEARCH_TOPBAR_SEARCH] =
     {
         .description = gText_SearchForPkmnBasedOnParameters,
         .highlightX = 0,
         .highlightY = 0,
         .highlightWidth = 5,
     },
-    [SEARCH_TOPBAR_SHIFT] = 
+    [SEARCH_TOPBAR_SHIFT] =
     {
         .description = gText_SwitchPokedexListings,
         .highlightX = 6,
         .highlightY = 0,
         .highlightWidth = 5,
     },
-    [SEARCH_TOPBAR_CANCEL] = 
+    [SEARCH_TOPBAR_CANCEL] =
     {
         .description = gText_ReturnToPokedex,
         .highlightX = 12,
@@ -1037,7 +1037,7 @@ static const struct SearchMenuTopBarItem sSearchMenuTopBarItems[SEARCH_TOPBAR_CO
 
 static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
 {
-    [SEARCH_NAME] = 
+    [SEARCH_NAME] =
     {
         .description = gText_ListByFirstLetter,
         .titleBgX = 0,
@@ -1047,7 +1047,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 2,
         .selectionBgWidth = 12,
     },
-    [SEARCH_COLOR] = 
+    [SEARCH_COLOR] =
     {
         .description = gText_ListByBodyColor,
         .titleBgX = 0,
@@ -1057,7 +1057,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 4,
         .selectionBgWidth = 12,
     },
-    [SEARCH_TYPE_LEFT] = 
+    [SEARCH_TYPE_LEFT] =
     {
         .description = gText_ListByType,
         .titleBgX = 0,
@@ -1067,7 +1067,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 6,
         .selectionBgWidth = 6,
     },
-    [SEARCH_TYPE_RIGHT] = 
+    [SEARCH_TYPE_RIGHT] =
     {
         .description = gText_ListByType,
         .titleBgX = 0,
@@ -1077,7 +1077,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 6,
         .selectionBgWidth = 6,
     },
-    [SEARCH_ORDER] = 
+    [SEARCH_ORDER] =
     {
         .description = gText_SelectPokedexListingMode,
         .titleBgX = 0,
@@ -1087,7 +1087,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 8,
         .selectionBgWidth = 12,
     },
-    [SEARCH_MODE] = 
+    [SEARCH_MODE] =
     {
         .description = gText_SelectPokedexMode,
         .titleBgX = 0,
@@ -1097,7 +1097,7 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
         .selectionBgY = 10,
         .selectionBgWidth = 12,
     },
-    [SEARCH_OK] = 
+    [SEARCH_OK] =
     {
         .description = gText_ExecuteSearchSwitch,
         .titleBgX = 0,
@@ -1112,52 +1112,52 @@ static const struct SearchMenuItem sSearchMenuItems[SEARCH_COUNT] =
 // Left, Right, Up, Down
 static const u8 sSearchMovementMap_SearchNatDex[SEARCH_COUNT][4] =
 {
-    [SEARCH_NAME] = 
+    [SEARCH_NAME] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF,    
+        0xFF,
+        0xFF,
+        0xFF,
         SEARCH_COLOR
     },
-    [SEARCH_COLOR] = 
+    [SEARCH_COLOR] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_NAME,    
+        0xFF,
+        0xFF,
+        SEARCH_NAME,
         SEARCH_TYPE_LEFT
     },
-    [SEARCH_TYPE_LEFT] = 
-    {   
-        0xFF,    
-        SEARCH_TYPE_RIGHT,    
-        SEARCH_COLOR,    
-        SEARCH_ORDER
-    },
-    [SEARCH_TYPE_RIGHT] = 
-    {   SEARCH_TYPE_LEFT, 
-        0xFF,    
-        SEARCH_COLOR,    
-        SEARCH_ORDER
-    },
-    [SEARCH_ORDER] = 
+    [SEARCH_TYPE_LEFT] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_TYPE_LEFT,    
+        0xFF,
+        SEARCH_TYPE_RIGHT,
+        SEARCH_COLOR,
+        SEARCH_ORDER
+    },
+    [SEARCH_TYPE_RIGHT] =
+    {   SEARCH_TYPE_LEFT,
+        0xFF,
+        SEARCH_COLOR,
+        SEARCH_ORDER
+    },
+    [SEARCH_ORDER] =
+    {
+        0xFF,
+        0xFF,
+        SEARCH_TYPE_LEFT,
         SEARCH_MODE
     },
-    [SEARCH_MODE] = 
+    [SEARCH_MODE] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_ORDER,    
+        0xFF,
+        0xFF,
+        SEARCH_ORDER,
         SEARCH_OK
     },
-    [SEARCH_OK] = 
+    [SEARCH_OK] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_MODE, 
+        0xFF,
+        0xFF,
+        SEARCH_MODE,
         0xFF
     },
 };
@@ -1165,53 +1165,53 @@ static const u8 sSearchMovementMap_SearchNatDex[SEARCH_COUNT][4] =
 // Left, Right, Up, Down
 static const u8 sSearchMovementMap_ShiftNatDex[SEARCH_COUNT][4] =
 {
-    [SEARCH_NAME] = 
+    [SEARCH_NAME] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_COLOR] = 
+    [SEARCH_COLOR] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_TYPE_LEFT] = 
+    [SEARCH_TYPE_LEFT] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_TYPE_RIGHT] = 
+    [SEARCH_TYPE_RIGHT] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_ORDER] = 
+    [SEARCH_ORDER] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF,    
+        0xFF,
+        0xFF,
+        0xFF,
         SEARCH_MODE
     },
-    [SEARCH_MODE] = 
+    [SEARCH_MODE] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_ORDER,    
+        0xFF,
+        0xFF,
+        SEARCH_ORDER,
         SEARCH_OK
     },
-    [SEARCH_OK] = 
+    [SEARCH_OK] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_MODE, 
+        0xFF,
+        0xFF,
+        SEARCH_MODE,
         0xFF
     },
 };
@@ -1219,52 +1219,52 @@ static const u8 sSearchMovementMap_ShiftNatDex[SEARCH_COUNT][4] =
 // Left, Right, Up, Down
 static const u8 sSearchMovementMap_SearchHoennDex[SEARCH_COUNT][4] =
 {
-    [SEARCH_NAME] = 
+    [SEARCH_NAME] =
     {
         0xFF,
-        0xFF, 
-        0xFF,    
+        0xFF,
+        0xFF,
         SEARCH_COLOR
     },
-    [SEARCH_COLOR] = 
+    [SEARCH_COLOR] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_NAME,    
+        0xFF,
+        0xFF,
+        SEARCH_NAME,
         SEARCH_TYPE_LEFT
     },
-    [SEARCH_TYPE_LEFT] = 
+    [SEARCH_TYPE_LEFT] =
     {
-        0xFF,    
-        SEARCH_TYPE_RIGHT,    
-        SEARCH_COLOR,    
+        0xFF,
+        SEARCH_TYPE_RIGHT,
+        SEARCH_COLOR,
         SEARCH_ORDER
     },
-    [SEARCH_TYPE_RIGHT] = 
-    {   SEARCH_TYPE_LEFT, 
-        0xFF,    
-        SEARCH_COLOR,    
+    [SEARCH_TYPE_RIGHT] =
+    {   SEARCH_TYPE_LEFT,
+        0xFF,
+        SEARCH_COLOR,
         SEARCH_ORDER
     },
     [SEARCH_ORDER] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_TYPE_LEFT,    
+        0xFF,
+        0xFF,
+        SEARCH_TYPE_LEFT,
         SEARCH_OK
     },
-    [SEARCH_MODE] = 
+    [SEARCH_MODE] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_OK] = 
+    [SEARCH_OK] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_ORDER, 
+        0xFF,
+        0xFF,
+        SEARCH_ORDER,
         0xFF
     },
 };
@@ -1272,53 +1272,53 @@ static const u8 sSearchMovementMap_SearchHoennDex[SEARCH_COUNT][4] =
 // Left, Right, Up, Down
 static const u8 sSearchMovementMap_ShiftHoennDex[SEARCH_COUNT][4] =
 {
-    [SEARCH_NAME] = 
+    [SEARCH_NAME] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
     [SEARCH_COLOR] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_TYPE_LEFT] = 
+    [SEARCH_TYPE_LEFT] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_TYPE_RIGHT] = 
+    [SEARCH_TYPE_RIGHT] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_ORDER] = 
+    [SEARCH_ORDER] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF,    
+        0xFF,
+        0xFF,
+        0xFF,
         SEARCH_OK
     },
-    [SEARCH_MODE] = 
+    [SEARCH_MODE] =
     {
-        0xFF, 
-        0xFF, 
-        0xFF, 
+        0xFF,
+        0xFF,
+        0xFF,
         0xFF
     },
-    [SEARCH_OK] = 
+    [SEARCH_OK] =
     {
-        0xFF, 
-        0xFF,    
-        SEARCH_ORDER, 
+        0xFF,
+        0xFF,
+        SEARCH_ORDER,
         0xFF
     },
 };
@@ -1513,10 +1513,8 @@ void ResetPokedex(void)
     DisableNationalPokedex();
     for (i = 0; i < DEX_FLAGS_NO; i++)
     {
-        gSaveBlock2Ptr->pokedex.owned[i] = 0;
-        gSaveBlock2Ptr->pokedex.seen[i] = 0;
-        gSaveBlock1Ptr->seen1[i] = 0;
-        gSaveBlock1Ptr->seen2[i] = 0;
+        gSaveBlock1Ptr->dexCaught[i] = 0;
+        gSaveBlock1Ptr->dexSeen[i] = 0;
     }
 }
 
@@ -2170,11 +2168,11 @@ static void FreeWindowAndBgBuffers(void)
 
 static void CreatePokedexList(u8 dexMode, u8 order)
 {
-    u16 vars[3]; //I have no idea why three regular variables are stored in an array, but whatever.
+    u32 vars[3]; //I have no idea why three regular variables are stored in an array, but whatever.
 #define temp_dexCount   vars[0]
 #define temp_isHoennDex vars[1]
 #define temp_dexNum     vars[2]
-    s16 i;
+    s32 i;
 
     sPokedexView->pokemonListCount = 0;
 
@@ -2239,11 +2237,11 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         }
         break;
     case ORDER_ALPHABETICAL:
-        for (i = 0; i < NUM_SPECIES - 1; i++)
+        for (i = 0; i < ARRAY_COUNT(gPokedexOrder_Alphabetical); i++)
         {
             temp_dexNum = gPokedexOrder_Alphabetical[i];
 
-            if (NationalToHoennOrder(temp_dexNum) <= temp_dexCount && GetSetPokedexFlag(temp_dexNum, FLAG_GET_SEEN))
+            if ((!temp_isHoennDex || NationalToHoennOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_SEEN))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2253,11 +2251,11 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         }
         break;
     case ORDER_HEAVIEST:
-        for (i = NATIONAL_DEX_COUNT - 1; i >= 0; i--)
+        for (i = ARRAY_COUNT(gPokedexOrder_Weight) - 1; i >= 0; i--)
         {
             temp_dexNum = gPokedexOrder_Weight[i];
 
-            if (NationalToHoennOrder(temp_dexNum) <= temp_dexCount && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if ((!temp_isHoennDex || NationalToHoennOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2267,11 +2265,11 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         }
         break;
     case ORDER_LIGHTEST:
-        for (i = 0; i < NATIONAL_DEX_COUNT; i++)
+        for (i = 0; i < ARRAY_COUNT(gPokedexOrder_Weight); i++)
         {
             temp_dexNum = gPokedexOrder_Weight[i];
 
-            if (NationalToHoennOrder(temp_dexNum) <= temp_dexCount && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if ((!temp_isHoennDex || NationalToHoennOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2281,11 +2279,11 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         }
         break;
     case ORDER_TALLEST:
-        for (i = NATIONAL_DEX_COUNT - 1; i >= 0; i--)
+        for (i = ARRAY_COUNT(gPokedexOrder_Height) - 1; i >= 0; i--)
         {
             temp_dexNum = gPokedexOrder_Height[i];
 
-            if (NationalToHoennOrder(temp_dexNum) <= temp_dexCount && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if ((!temp_isHoennDex || NationalToHoennOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2295,11 +2293,11 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         }
         break;
     case ORDER_SMALLEST:
-        for (i = 0; i < NATIONAL_DEX_COUNT; i++)
+        for (i = 0; i < ARRAY_COUNT(gPokedexOrder_Height); i++)
         {
             temp_dexNum = gPokedexOrder_Height[i];
 
-            if (NationalToHoennOrder(temp_dexNum) <= temp_dexCount && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if ((!temp_isHoennDex || NationalToHoennOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2838,7 +2836,7 @@ static void CreateInterfaceSprites(u8 page)
             spriteId = CreateSprite(&sHoennDexSeenOwnNumberSpriteTemplate, 40, 48, 1);
             digitNum = (sPokedexView->seenCount % 100) % 10;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
-            
+
             // Owned value - 100s
             drawNextDigit = FALSE;
             spriteId = CreateSprite(&sHoennDexSeenOwnNumberSpriteTemplate, 24, 80, 1);
@@ -3898,7 +3896,7 @@ static void HighlightSubmenuScreenSelectBarItem(u8 a, u16 b)
         u8 row = i * 7 + 1;
         u32 newPalette;
 
-        do 
+        do
         {
             if (i == a || i == 3)
                 newPalette = 0x2000;
@@ -4084,8 +4082,8 @@ static void SpriteCB_SlideCaughtMonToCenter(struct Sprite *sprite)
 // u32 value is re-used, but passed as a bool that's TRUE if national dex is enabled
 static void PrintMonInfo(u32 num, u32 value, u32 owned, u32 newEntry)
 {
-    u8 str[16];
-    u8 str2[32];
+    u8 str[0x10];
+    u8 str2[0x30];
     u16 natNum;
     const u8 *name;
     const u8 *category;
@@ -4253,59 +4251,30 @@ u16 GetPokedexHeightWeight(u16 dexNum, u8 data)
 
 s8 GetSetPokedexFlag(u16 nationalDexNo, u8 caseID)
 {
-    u8 index;
-    u8 bit;
-    u8 mask;
-    s8 retVal;
+    u32 index, bit, mask;
+    s8 retVal = 0;
 
     nationalDexNo--;
     index = nationalDexNo / 8;
     bit = nationalDexNo % 8;
     mask = 1 << bit;
-    retVal = 0;
+
     switch (caseID)
     {
     case FLAG_GET_SEEN:
-        if (gSaveBlock2Ptr->pokedex.seen[index] & mask)
-        {
-            if ((gSaveBlock2Ptr->pokedex.seen[index] & mask) == (gSaveBlock1Ptr->seen1[index] & mask)
-             && (gSaveBlock2Ptr->pokedex.seen[index] & mask) == (gSaveBlock1Ptr->seen2[index] & mask))
-                retVal = 1;
-            else
-            {
-                gSaveBlock2Ptr->pokedex.seen[index] &= ~mask;
-                gSaveBlock1Ptr->seen1[index] &= ~mask;
-                gSaveBlock1Ptr->seen2[index] &= ~mask;
-                retVal = 0;
-            }
-        }
+        retVal = ((gSaveBlock1Ptr->dexSeen[index] & mask) != 0);
         break;
     case FLAG_GET_CAUGHT:
-        if (gSaveBlock2Ptr->pokedex.owned[index] & mask)
-        {
-            if ((gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock2Ptr->pokedex.seen[index] & mask)
-             && (gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock1Ptr->seen1[index] & mask)
-             && (gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock1Ptr->seen2[index] & mask))
-                retVal = 1;
-            else
-            {
-                gSaveBlock2Ptr->pokedex.owned[index] &= ~mask;
-                gSaveBlock2Ptr->pokedex.seen[index] &= ~mask;
-                gSaveBlock1Ptr->seen1[index] &= ~mask;
-                gSaveBlock1Ptr->seen2[index] &= ~mask;
-                retVal = 0;
-            }
-        }
+         retVal = ((gSaveBlock1Ptr->dexCaught[index] & mask) != 0);
         break;
     case FLAG_SET_SEEN:
-        gSaveBlock2Ptr->pokedex.seen[index] |= mask;
-        gSaveBlock1Ptr->seen1[index] |= mask;
-        gSaveBlock1Ptr->seen2[index] |= mask;
+        gSaveBlock1Ptr->dexSeen[index] |= mask;
         break;
     case FLAG_SET_CAUGHT:
-        gSaveBlock2Ptr->pokedex.owned[index] |= mask;
+        gSaveBlock1Ptr->dexCaught[index] |= mask;
         break;
     }
+
     return retVal;
 }
 
@@ -4566,22 +4535,23 @@ static void UnusedPrintDecimalNum(u8 windowId, u16 b, u8 left, u8 top)
 
 static void PrintFootprint(u8 windowId, u16 dexNum)
 {
-    u8 image[32 * 4];
+    u8 image[32 * 4] = {0};
     const u8 * r12 = gMonFootprintTable[NationalPokedexNumToSpecies(dexNum)];
-    u16 r5 = 0;
-    u16 i;
-    u16 j;
+    u32 i, j, r5 = 0;
 
-    for (i = 0; i < 32; i++)
+    if (r12 != NULL)
     {
-        u8 r3 = r12[i];
-        for (j = 0; j < 4; j++)
+        for (i = 0; i < 32; i++)
         {
-            u8 value = ((r3 >> (2 * j)) & 1 ? 2 : 0);
-            if ((2 << (2 * j)) & r3)
-                value |= 0x20;
-            image[r5] = value;
-            r5++;
+            u8 r3 = r12[i];
+            for (j = 0; j < 4; j++)
+            {
+                u8 value = ((r3 >> (2 * j)) & 1 ? 2 : 0);
+                if ((2 << (2 * j)) & r3)
+                    value |= 0x20;
+                image[r5] = value;
+                r5++;
+            }
         }
     }
     CopyToWindowPixelBuffer(windowId, image, sizeof(image), 0);
