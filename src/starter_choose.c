@@ -126,9 +126,9 @@ static const u8 sStarterLabelCoords[][2] =
 
 static const u16 sStarterMon[STARTER_MON_COUNT] =
 {
-    SPECIES_TREECKO,
-    SPECIES_TORCHIC,
-    SPECIES_MUDKIP,
+    SPECIES_VIKAVOLT,
+    SPECIES_ALOLAN_NINETALES,
+    SPECIES_PHEROMOSA,
 };
 
 static const struct BgTemplate gUnknown_085B1E00[3] =
