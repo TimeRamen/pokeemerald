@@ -1508,6 +1508,7 @@ const u8 gText_UpdatedTime[] = _("Updated time"); // Unused
 const u8 gText_MenuPokedex[] = _("POKéDEX");
 const u8 gText_MenuPokemon[] = _("POKéMON");
 const u8 gText_MenuBag[] = _("BAG");
+const u8 gText_MenuQuests[] = _("QUESTS");
 const u8 gText_MenuPokenav[] = _("POKéNAV");
 const u8 gText_MenuPlayer[] = _("{PLAYER}");
 const u8 gText_MenuSave[] = _("SAVE");
@@ -1817,6 +1818,7 @@ const u8 gText_Answer[] = _("ANSWER");
 const u8 gText_PokeBalls[] = _("POKé BALLS");
 const u8 gText_Berry[] = _("BERRY");
 const u8 gText_Berries[] = _("BERRIES");
+const u8 gText_Nickname[] = _("NICKNAME");
 
 //// side quest data
 //names
@@ -1974,4 +1976,9 @@ const u8 gText_SideQuestReward_27[] = _("Reward 27");
 const u8 gText_SideQuestReward_28[] = _("Reward 28");
 const u8 gText_SideQuestReward_29[] = _("Reward 29");
 const u8 gText_SideQuestReward_30[] = _("Reward 30");
+
+const u8 gMenuText_Move[] = _("MOVE");
+const u8 gText_MoveItemWhere[] = _("Move item to where?");
+const u8 gText_XsYAnd[] = _("{STR_VAR_1}'s\n{STR_VAR_2} and\l");
+const u8 gText_XsYWereSwapped[] = _("{STR_VAR_1}'s\l{STR_VAR_2} were swapped!{PAUSE_UNTIL_PRESS}");
 

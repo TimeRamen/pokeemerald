@@ -230,6 +230,7 @@ extern const u8 gText_SaveFailed[];
 extern const u8 gText_MenuPokedex[];
 extern const u8 gText_MenuPokemon[];
 extern const u8 gText_MenuBag[];
+extern const u8 gText_MenuQuests[];
 extern const u8 gText_MenuPokenav[];
 extern const u8 gText_MenuPlayer[];
 extern const u8 gText_MenuSave[];
@@ -495,6 +496,7 @@ extern const u8 gText_SpDef[];
 extern const u8 gText_Speed[];
 extern const u8 gText_Dash[];
 extern const u8 gText_Plus[];
+extern const u8 gText_Nickname[];
 
 //pokedex text
 extern const u8 gText_CryOf[];
@@ -3117,6 +3119,12 @@ extern const u8 gText_SideQuestReward_27[];
 extern const u8 gText_SideQuestReward_28[];
 extern const u8 gText_SideQuestReward_29[];
 extern const u8 gText_SideQuestReward_30[];
+
+
+extern const u8 gMenuText_Move[];
+extern const u8 gText_MoveItemWhere[];
+extern const u8 gText_XsYAnd[];
+extern const u8 gText_XsYWereSwapped[];
 
 
 #endif // GUARD_STRINGS_H
