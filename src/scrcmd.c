@@ -2248,6 +2248,8 @@ bool8 ScrCmd_warpD1(struct ScriptContext *ctx)
     return TRUE;
 }
 
+
+
 bool8 ScrCmd_setmonmetlocation(struct ScriptContext *ctx)
 {
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
@@ -2299,6 +2301,18 @@ bool8 ScrCmd_warpsootopolislegend(struct ScriptContext *ctx)
     DoSootopolisLegendWarp();
     ResetInitialPlayerAvatarState();
     return TRUE;
+}
+
+bool8 ScrCmd_showitemdesc(struct ScriptContext *ctx)
+{
+    DrawHeaderBox();
+    return FALSE;
+}
+
+bool8 ScrCmd_hideitemdesc(struct ScriptContext *ctx)
+{
+    HideHeaderBox();
+    return FALSE;
 }
 
 bool8 ScrCmd_questmenu(struct ScriptContext *ctx)
