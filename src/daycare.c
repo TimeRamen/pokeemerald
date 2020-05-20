@@ -426,15 +426,14 @@ static s32 GetParentToInheritNature(struct DayCare *daycare)
     // search for ANY pokemon
     for (everstoneCount = 0,i = 0; i < DAYCARE_MON_COUNT; i++)
     {
-        if (GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_HELD_ITEM) == ITEM_EVERSTONE
-        || Random() >= USHRT_MAX)
+        if (!(GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_HELD_ITEM) != ITEM_EVERSTONE
+       || Random() >= USHRT_MAX))
     	{
         	everstoneCount++;
-        	parent = i;
+                parent = i;
     	}
-    	
     }
-    
+
     // coin flip on ...either parent
     if (everstoneCount == DAYCARE_MON_COUNT)
     {
