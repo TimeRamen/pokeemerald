@@ -1568,14 +1568,6 @@
     .macro openquestmenu
     questmenu 0 0
     .endm
-    
-    .macro showitemdesc
-    .byte 0xe4
-    .endm
-    
-    .macro hideitemdesc
-    .byte 0xe5
-    .endm
 
 @ Supplementary
 

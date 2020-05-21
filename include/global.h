@@ -452,9 +452,7 @@ struct RankingHall2P
 // quest menu
 #include "constants/quests.h"
 #define SIDE_QUEST_FLAGS_COUNT     ((SIDE_QUEST_COUNT / 8) + ((SIDE_QUEST_COUNT % 8) ? 1 : 0))
-//item desc
-#include "constants/items.h"
-#define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
+
 
 struct SaveBlock2
 {
@@ -491,7 +489,6 @@ struct SaveBlock2
     /*0x0F2C*/ u8 unlockedQuests[SIDE_QUEST_FLAGS_COUNT];
     /*0x????*/ u8 completedQuests[SIDE_QUEST_FLAGS_COUNT];
     /*0x????*/ u8 activeQuest;
-    /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT]; //?? which actual place does it even matter?
 }; 
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;

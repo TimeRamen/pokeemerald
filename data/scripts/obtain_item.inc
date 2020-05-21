@@ -1,5 +1,4 @@
 Std_ObtainItem:: @ 8271AD3
-	copyvar VAR_0x8006, VAR_0x8000
 	additem VAR_0x8000, VAR_0x8001
 	copyvar VAR_0x8007, VAR_RESULT
 	call EventScript_ObtainItemMessage
@@ -77,11 +76,8 @@ EventScript_BufferPowerUpPocket::
 
 EventScript_ObtainedItem:: @ 8271B95
 	message gText_ObtainedTheItem
-	delay 10
-    	showitemdesc
 	waitfanfare
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
-	hideitemdesc
 	setvar VAR_RESULT, 1
 	return
 

@@ -235,6 +235,9 @@ static const struct ListMenuTemplate sItemListMenu =
 static const u8 sMenuText_Select[] = _("Select");
 static const u8 sMenuText_L[] = _("L Button");
 static const u8 sMenuText_R[] = _("R Button");
+
+
+
 const struct MenuAction sItemMenuActions[] = {
     [MENU_ACTION_USE]           = {gMenuText_Use, ItemMenu_UseOutOfBattle},
     [MENU_ACTION_TOSS]          = {gMenuText_Toss, ItemMenu_Toss},
@@ -261,14 +264,26 @@ static const u8 sKeyItemMenuActions[] = {MENU_ACTION_USE, MENU_ACTION_REGISTER, 
 static const u8 sPokeBallMenuActions[] = {MENU_ACTION_GIVE, MENU_ACTION_COUNT, MENU_ACTION_TOSS, MENU_ACTION_CANCEL};
 static const u8 sTmHmMenuActions[] = {MENU_ACTION_USE, MENU_ACTION_GIVE, MENU_ACTION_COUNT, MENU_ACTION_CANCEL};
 static const u8 sBerriesMenuActions[] = {MENU_ACTION_CHECK_TAG, MENU_ACTION_COUNT, MENU_ACTION_USE, MENU_ACTION_GIVE, MENU_ACTION_TOSS, MENU_ACTION_CANCEL};
+
 static const u8 sInBattleItemMenuActions[] = {MENU_ACTION_USE_2, MENU_ACTION_CANCEL};
+
 static const u8 gUnknown_08614044[] = {MENU_ACTION_GIVE, MENU_ACTION_CANCEL};
+
 static const u8 sInBattleNullUsageMenuActions = MENU_ACTION_CANCEL;
+
 static const u8 gUnknown_08614047[] = {MENU_ACTION_CONFIRM, MENU_ACTION_CHECK_TAG, MENU_ACTION_COUNT, MENU_ACTION_CANCEL};
+
 static const u8 gUnknown_0861404B[] = {MENU_ACTION_SHOW, MENU_ACTION_CANCEL};
+
 static const u8 gUnknown_0861404D[] = {MENU_ACTION_GIVE_2, MENU_ACTION_CANCEL};
+
 static const u8 sInBattleBerryActions[] = {MENU_ACTION_CONFIRM_2, MENU_ACTION_CANCEL};
+
 static const u8 sRegisterMenuActions[] = {MENU_ACTION_SELECT_BUTTON, MENU_ACTION_L_BUTTON, MENU_ACTION_COUNT, MENU_ACTION_R_BUTTON};
+
+//const u8 gUnknown_0861402C[] = {MENU_ACTION_USE , 3, 1, 4};
+
+
 
 const TaskFunc sBagMenuTasks[] = {
     unknown_item_menu_type,
@@ -284,6 +299,9 @@ const TaskFunc sBagMenuTasks[] = {
     NULL,
     item_menu_type_b
 };
+
+
+
 
 const struct YesNoFuncTable sYesNoTossFunctions = {BagMenu_ConfirmToss, BagMenu_CancelToss};
 
@@ -1566,17 +1584,17 @@ void SetUpBagMenuActionItems(u8 unused)
                     case MEDICINE_POCKET:
                         gBagMenu->unk820 = &gBagMenu->unk824;
                         gBagMenu->unk828 = 4;
-                        memcpy(&gBagMenu->unk824, &gUnknown_0861402C, 4);
+                        memcpy(&gBagMenu->unk824, &sItemPocketMenuActions, 4);
                         break;
                     case BATTLEITEMS_POCKET:
                         gBagMenu->unk820 = &gBagMenu->unk824;
                         gBagMenu->unk828 = 4;
-                        memcpy(&gBagMenu->unk824, &gUnknown_0861402C, 4);
+                        memcpy(&gBagMenu->unk824, &sItemPocketMenuActions, 4);
                         break;
                     case POWERUP_POCKET:
                         gBagMenu->unk820 = &gBagMenu->unk824;
                         gBagMenu->unk828 = 4;
-                        memcpy(&gBagMenu->unk824, &gUnknown_0861402C, 4);
+                        memcpy(&gBagMenu->unk824, &sItemPocketMenuActions, 4);
                         break;
                 }
             }
