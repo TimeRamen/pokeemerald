@@ -46,6 +46,7 @@
 #include "rom_8011DC0.h"
 #include "union_room.h"
 #include "constants/rgb.h"
+//#include "quests.h"
 
 // Menu actions
 enum
@@ -53,7 +54,8 @@ enum
     MENU_ACTION_POKEDEX,
     MENU_ACTION_POKEMON,
     MENU_ACTION_BAG,
-    MENU_ACTION_POKENAV,
+    //MENU_ACTION_QUESTS,
+    MENU_ACTION_POKENAV,	//perhaps remove this entirely.
     MENU_ACTION_PLAYER,
     MENU_ACTION_SAVE,
     MENU_ACTION_OPTION,
@@ -94,6 +96,7 @@ EWRAM_DATA static u8 sSaveInfoWindowId = 0;
 static bool8 StartMenuPokedexCallback(void);
 static bool8 StartMenuPokemonCallback(void);
 static bool8 StartMenuBagCallback(void);
+//static bool8 StartMenuQuestsCallback(void);
 static bool8 StartMenuPokeNavCallback(void);
 static bool8 StartMenuPlayerNameCallback(void);
 static bool8 StartMenuSaveCallback(void);
@@ -159,6 +162,7 @@ static const struct MenuAction sStartMenuItems[] =
     {gText_MenuPokedex, {.u8_void = StartMenuPokedexCallback}},
     {gText_MenuPokemon, {.u8_void = StartMenuPokemonCallback}},
     {gText_MenuBag, {.u8_void = StartMenuBagCallback}},
+    //{gText_MenuQuests, {.u8_void = StartMenuQuestsCallback}},
     {gText_MenuPokenav, {.u8_void = StartMenuPokeNavCallback}},
     {gText_MenuPlayer, {.u8_void = StartMenuPlayerNameCallback}},
     {gText_MenuSave, {.u8_void = StartMenuSaveCallback}},
@@ -283,6 +287,7 @@ static void BuildNormalStartMenu(void)
     }
 
     AddStartMenuAction(MENU_ACTION_BAG);
+    //AddStartMenuAction(MENU_ACTION_QUESTS); //later add a flag that turns on when you get quests?
 
     if (FlagGet(FLAG_SYS_POKENAV_GET) == TRUE)
     {
@@ -640,7 +645,13 @@ static bool8 StartMenuBagCallback(void)
 
     return FALSE;
 }
-
+/* DOESNT WORK!!!!!
+static bool8 StartMenuQuestsCallback(void)
+{
+    u8 taskId;
+    Task_OpenQuestMenuFromStartMenu(taskId);
+}
+*/
 static bool8 StartMenuPokeNavCallback(void)
 {
     if (!gPaletteFade.active)
