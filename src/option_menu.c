@@ -583,7 +583,7 @@ static u8 ButtonMode_ProcessInput(u8 selection)
 {
     if (gMain.newKeys & DPAD_RIGHT)
     {
-        if (selection <= 1)
+        if (selection < 1)
             selection++;
         else
             selection = 0;
@@ -595,7 +595,7 @@ static u8 ButtonMode_ProcessInput(u8 selection)
         if (selection != 0)
             selection--;
         else
-            selection = 2;
+            selection = 1;
 
         sArrowPressed = TRUE;
     }
@@ -616,13 +616,15 @@ static void ButtonMode_DrawChoices(u8 selection)
 
     widthNormal = GetStringWidth(1, gText_ButtonTypeNormal, 0);
     widthLR = GetStringWidth(1, gText_ButtonTypeLR, 0);
-    widthLA = GetStringWidth(1, gText_ButtonTypeLEqualsA, 0);
+    //widthLA = GetStringWidth(1, gText_ButtonTypeLEqualsA, 0);
 
     widthLR -= 94;
-    xLR = (widthNormal - widthLR - widthLA) / 2 + 104;
+    /*
+    xLR = (widthNormal - widthLR) / 2 + 104;
     DrawOptionMenuChoice(gText_ButtonTypeLR, xLR, YPOS_BUTTONMODE, styles[1]);
-
-    DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(1, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
+    */
+    DrawOptionMenuChoice(gText_ButtonTypeLR, GetStringRightAlignXOffset(1, gText_ButtonTypeLR, 198), YPOS_BUTTONMODE, styles[1]);
+    //DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(1, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
 }
 
 static void DrawTextOption(void)
