@@ -859,6 +859,57 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
     return eggSpecies;
 }
 
+static u16 InheritPokeball(struct Pokemon *egg, struct DayCare *daycare)
+{
+	s32 i;
+	s32 j;
+	s32 parent = -1;
+	s32 ball;
+	//conditions:
+	//1 : ditto, 2: female
+	//first iteration: parent = 2, second iteration: parent = 2
+	//1 : ditto, 2: male
+	//first iteration: parent = 2, second iteration: parent = 1
+	//1 : female, 2: male
+	//first iteration: parent = 1, second iteration: parent = 1
+	//1 : male, 2: female
+	//first iteration: parent = 2, second iteration: parent = 2
+	//1 : female, 2: ditto
+	//first iteration: parent = 1, second iteration: parent = 1
+	//1 : male, 2: ditto
+	//first iteration: parent = 2, second iteration: parent = 1
+	for (i = 0, j=1; i < DAYCARE_MON_COUNT; i++,j--)
+	{
+		if (GetBoxMonGender(&daycare->mons[i].mon) == MON_FEMALE)
+		{
+			parent = i;
+		}else{
+			parent = j;
+		}
+
+	}
+	//the fringest of fringe cases
+	if(GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPECIES == SPECIES_DITTO))
+	{
+		parent = 1;
+	}
+	if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPECIES) ==
+		GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPECIES))
+	{
+		if (Random() >= USHRT_MAX / 2)
+			parent = 0;
+		else
+			parent = 1;
+	}
+	
+	ball = GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_POKEBALL);
+
+	if (ball == ITEM_MASTER_BALL || ball == ITEM_CHERISH_BALL)
+		ball = ITEM_POKE_BALL;
+
+	SetMonData(egg, MON_DATA_POKEBALL, &ball);
+}
+
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
     struct Pokemon egg;
@@ -870,6 +921,7 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
     AlterEggSpeciesWithIncenseItem(&species, daycare);
     SetInitialEggData(&egg, species, daycare);
     InheritIVs(&egg, daycare);
+    InheritPokeball(&egg, daycare);
     BuildEggMoveset(&egg, &daycare->mons[parentSlots[1]].mon, &daycare->mons[parentSlots[0]].mon);
 
     if (species == SPECIES_PICHU)
@@ -882,7 +934,6 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
     CalculatePlayerPartyCount();
     RemoveEggFromDayCare(daycare);
 }
-
 void CreateEgg(struct Pokemon *mon, u16 species, bool8 setHotSpringsLocation)
 {
     u8 metLevel;
