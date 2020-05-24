@@ -53,6 +53,12 @@
 #define PSS_LABEL_WINDOW_POKEMON_SKILLS_TITLE 1
 #define PSS_LABEL_WINDOW_BATTLE_MOVES_TITLE 2
 #define PSS_LABEL_WINDOW_CONTEST_MOVES_TITLE 3
+/*
+These are for the seperate summary screen titles.
+#define PSS_LABEL_WINDOW_POKEMON_EV_IV_TITLE 4
+#define PSS_LABEL_WINDOW_IV_TITLE 4
+#define PSS_LABEL_WINDOW_EV_TITLE 5
+*/
 
 // Button control text (upper right)
 #define PSS_LABEL_WINDOW_PROMPT_CANCEL 4
@@ -93,7 +99,13 @@
 #define PSS_DATA_WINDOW_SKILLS_STATS_LEFT 2 // HP, Attack, Defense
 #define PSS_DATA_WINDOW_SKILLS_STATS_RIGHT 3 // Sp. Attack, Sp. Defense, Speed
 #define PSS_DATA_WINDOW_EXP 4 // Exp, next level
-
+/*
+// Dynamic fields for the Pokemon EV/IV page
+#define PSS_DATA_WINDOW_SKILLS_IV_LEFT 2 // HP, Attack, Defense
+#define PSS_DATA_WINDOW_SKILLS_IV_RIGHT 3 // Sp. Attack, Sp. Defense, Speed
+#define PSS_DATA_WINDOW_SKILLS_EV_LEFT 4 // HP, Attack, Defense
+#define PSS_DATA_WINDOW_SKILLS_EV_RIGHT 5 // Sp. Attack, Sp. Defense, Speed
+*/
 // Dynamic fields for the Battle Moves and Contest Moves pages.
 #define PSS_DATA_WINDOW_MOVE_NAMES 0
 #define PSS_DATA_WINDOW_MOVE_PP 1
@@ -783,6 +795,8 @@ static void (*const sTextPrinterTasks[])(u8 taskId) =
 static const u8 sMemoNatureTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
 static const u8 sMemoMiscTextColor[] = _("{COLOR WHITE}{SHADOW DARK_GREY}"); // This is also affected by palettes, apparently
 static const u8 sStatsLeftColumnLayout[] = _("{SPECIAL_F7 0x00}/{SPECIAL_F7 0x01}\n{SPECIAL_F7 0x02}\n{SPECIAL_F7 0x03}");
+//why
+static const u8 sStatsLeftColumnLayoutIVEV[] = _("{SPECIAL_F7 0x00}\n{SPECIAL_F7 0x01}\n{SPECIAL_F7 0x02}");
 static const u8 sStatsRightColumnLayout[] = _("{SPECIAL_F7 0x00}\n{SPECIAL_F7 0x01}\n{SPECIAL_F7 0x02}");
 static const u8 sMovesPPLayout[] = _("{PP}{SPECIAL_F7 0x00}/{SPECIAL_F7 0x01}");
 
@@ -1481,6 +1495,37 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         sum->item = GetMonData(mon, MON_DATA_HELD_ITEM);
         sum->pid = GetMonData(mon, MON_DATA_PERSONALITY);
         sum->sanity = GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG);
+        /*
+        put this in the place below
+            sum->ivHP = GetMonData(mon, MON_DATA_HP_IV);
+            sum->ivAtk = GetMonData(mon, MON_DATA_ATK_IV);
+            sum->ivDef = GetMonData(mon, MON_DATA_DEF_IV);
+            sum->ivSpatk = GetMonData(mon, MON_DATA_SPATK_IV);
+            sum->ivSpdef = GetMonData(mon, MON_DATA_SPDEF_IV);
+            sum->ivSpeed = GetMonData(mon, MON_DATA_SPEED_IV);
+            
+            
+            sum->evHP = GetMonData(mon, MON_DATA_HP_EV);
+            sum->evAtk = GetMonData(mon, MON_DATA_ATK_EV);
+            sum->evDef = GetMonData(mon, MON_DATA_DEF_EV);
+            sum->evSpatk = GetMonData(mon, MON_DATA_SPATK_EV);
+            sum->evSpdef = GetMonData(mon, MON_DATA_SPDEF_EV);
+            sum->evSpeed = GetMonData(mon, MON_DATA_SPEED_EV);
+        
+        
+        
+        
+        this is what was on the screen before:
+        
+        sum->nature = GetNature(mon);
+            sum->currentHP = GetMonData(mon, MON_DATA_HP);
+            sum->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
+            sum->atk = GetMonData(mon, MON_DATA_ATK);
+            sum->def = GetMonData(mon, MON_DATA_DEF);
+            sum->spatk = GetMonData(mon, MON_DATA_SPATK);
+            sum->spdef = GetMonData(mon, MON_DATA_SPDEF);
+            sum->speed = GetMonData(mon, MON_DATA_SPEED);
+        */
 
         if (sum->sanity)
             sum->isEgg = TRUE;
@@ -1501,12 +1546,13 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         {
             sum->nature = GetNature(mon);
             sum->currentHP = GetMonData(mon, MON_DATA_HP);
-            sum->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
+	    sum->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
             sum->atk = GetMonData(mon, MON_DATA_ATK);
             sum->def = GetMonData(mon, MON_DATA_DEF);
             sum->spatk = GetMonData(mon, MON_DATA_SPATK);
             sum->spdef = GetMonData(mon, MON_DATA_SPDEF);
             sum->speed = GetMonData(mon, MON_DATA_SPEED);
+            
         }
         else
         {
@@ -3475,18 +3521,42 @@ static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
 
 static void BufferLeftColumnStats(void)
 {
-    u8 *currentHPString = Alloc(20);
-    u8 *maxHPString = Alloc(20);
-    u8 *attackString = Alloc(20);
-    u8 *defenseString = Alloc(20);
-    const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
+	u8 *currentHPString = Alloc(20);
+	u8 *maxHPString = Alloc(20);
+	u8 *attackString = Alloc(20);
+	u8 *defenseString = Alloc(20);
 
-    DynamicPlaceholderTextUtil_Reset();
-    BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3);
-    BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
-    BufferStat(attackString, natureMod[STAT_ATK - 1], sMonSummaryScreen->summary.atk, 2, 7);
-    BufferStat(defenseString, natureMod[STAT_DEF - 1], sMonSummaryScreen->summary.def, 3, 7);
-    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
+	u8 hpIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV);
+	u8 atkIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_IV);
+	u8 defIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_IV);
+
+	u8 hpEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_EV);
+	u8 atkEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_EV);
+	u8 defEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_EV);
+
+	const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
+
+	DynamicPlaceholderTextUtil_Reset();
+
+	if (gMain.heldKeys & R_BUTTON) {
+		BufferStat(currentHPString, 0, hpIV, 0, 7);
+		BufferStat(attackString, 0, atkIV, 1, 7);
+		BufferStat(defenseString, 0, defIV, 2, 7);
+		DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayoutIVEV);
+	}
+	else if (gMain.heldKeys & L_BUTTON) {
+		BufferStat(currentHPString, 0, hpEV, 0, 7);
+		BufferStat(attackString, 0, atkEV, 1, 7);
+		BufferStat(defenseString, 0, defEV, 2, 7);
+		DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayoutIVEV);
+	}
+	else {
+		BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3);
+		BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
+		BufferStat(attackString, natureMod[STAT_ATK - 1], sMonSummaryScreen->summary.atk, 2, 7);
+		BufferStat(defenseString, natureMod[STAT_DEF - 1], sMonSummaryScreen->summary.def, 3, 7);
+		DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
+	}
 
     Free(currentHPString);
     Free(maxHPString);
@@ -3501,13 +3571,35 @@ static void PrintLeftColumnStats(void)
 
 static void BufferRightColumnStats(void)
 {
+	u8 spAIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK_IV);
+	u8 spDIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF_IV);
+	u8 speIV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_IV);
+
+	u8 spAEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK_EV);
+	u8 spDEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF_EV);
+	u8 speEV = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_EV);
+
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 
-    DynamicPlaceholderTextUtil_Reset();
-    BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], sMonSummaryScreen->summary.spatk, 0, 3);
-    BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], sMonSummaryScreen->summary.spdef, 1, 3);
-    BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], sMonSummaryScreen->summary.speed, 2, 3);
-    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
+    DynamicPlaceholderTextUtil_Reset();    
+	
+	if (gMain.heldKeys & R_BUTTON) {
+		BufferStat(gStringVar1, 0, spAIV, 0, 3);
+		BufferStat(gStringVar2, 0, spDIV, 1, 3);
+		BufferStat(gStringVar3, 0, speIV, 2, 3);
+	}
+	else if (gMain.heldKeys & L_BUTTON) {
+		BufferStat(gStringVar1, 0, spAEV, 0, 3);
+		BufferStat(gStringVar2, 0, spDEV, 1, 3);
+		BufferStat(gStringVar3, 0, speEV, 2, 3);
+	}
+	else {
+		BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], sMonSummaryScreen->summary.spatk, 0, 3);
+		BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], sMonSummaryScreen->summary.spdef, 1, 3);
+		BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], sMonSummaryScreen->summary.speed, 2, 3);
+	}
+	
+	DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
 
 static void PrintRightColumnStats(void)

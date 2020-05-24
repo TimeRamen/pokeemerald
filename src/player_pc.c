@@ -170,6 +170,40 @@ static const struct MenuAction gPCText_ItemPCOptionsText[] =
 static const struct ItemSlot gNewGamePCItems[] =
 {
     { ITEM_POTION, 1 },
+    { ITEM_EVERSTONE, 99 },
+    { ITEM_MASTER_BALL, 99 },
+    { ITEM_MOON_BALL, 99 },
+    { ITEM_LOVE_BALL, 99 },
+    { ITEM_DESTINY_KNOT, 99 },
+    { ITEM_RARE_CANDY, 99 },
+    { ITEM_GREAT_BALL, 99 },
+    { ITEM_POWER_BRACER, 99 },//EV TRAINING ITEMS
+    { ITEM_POWER_BELT, 99 },
+    { ITEM_POWER_LENS, 99 },
+    { ITEM_POWER_BAND, 99 },
+    { ITEM_POWER_ANKLET, 99 },
+    { ITEM_POWER_WEIGHT, 99 },
+    { ITEM_SEA_INCENSE, 99 },//INCENSES
+    { ITEM_LAX_INCENSE, 99 },
+    { ITEM_ODD_INCENSE, 99 },
+    { ITEM_ROCK_INCENSE, 99 },
+    { ITEM_FULL_INCENSE, 99 },
+    { ITEM_WAVE_INCENSE, 99 },
+    { ITEM_ROSE_INCENSE, 99 },
+    { ITEM_LUCK_INCENSE, 99 },
+    { ITEM_PURE_INCENSE, 99 },
+    { ITEM_HP_UP, 99 },//EV INCREASING ITEMS
+    { ITEM_PROTEIN, 99 },
+    { ITEM_IRON, 99 },
+    { ITEM_CARBOS, 99 },
+    { ITEM_CALCIUM, 99 },
+    { ITEM_ZINC, 99 },
+    { ITEM_POMEG_BERRY, 99 },//EV REDUCING BERRIES
+    { ITEM_KELPSY_BERRY, 99 },
+    { ITEM_QUALOT_BERRY, 99 },
+    { ITEM_HONDEW_BERRY, 99 },
+    { ITEM_GREPA_BERRY, 99 },
+    { ITEM_TAMATO_BERRY, 99 },
     { ITEM_NONE, 0 }
 };
 

@@ -296,6 +296,7 @@ static const s16 sEggShardVelocities[][2] =
 static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 {
     u16 species;
+    u16 ball;
     u32 personality, pokerus;
     u8 i, friendship, language, gameMet, markings, obedience;
     u16 moves[MAX_MON_MOVES];
@@ -303,7 +304,7 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 
 
     species = GetMonData(egg, MON_DATA_SPECIES);
-
+    ball = GetMonData(egg, MON_DATA_POKEBALL);
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         moves[i] = GetMonData(egg, MON_DATA_MOVE1 + i);
@@ -323,7 +324,7 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     obedience = GetMonData(egg, MON_DATA_OBEDIENCE);
 
     CreateMon(temp, species, EGG_HATCH_LEVEL, 32, TRUE, personality, OT_ID_PLAYER_ID, 0);
-
+    SetMonData(temp, MON_DATA_POKEBALL, &ball);
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         SetMonData(temp, MON_DATA_MOVE1 + i,  &moves[i]);
@@ -352,7 +353,7 @@ static void AddHatchedMonToParty(u8 id)
     u8 isEgg = 0x46; // ?
     u16 pokeNum;
     u8 name[12];
-    u16 ball;
+    //u16 ball;
     u16 caughtLvl;
     u8 mapNameID;
     struct Pokemon* mon = &gPlayerParty[id];
@@ -370,9 +371,9 @@ static void AddHatchedMonToParty(u8 id)
 
     GetMonNickname2(mon, gStringVar1);
 
-    ball = ITEM_POKE_BALL;
-    SetMonData(mon, MON_DATA_POKEBALL, &ball);
-
+    //ball = ITEM_POKE_BALL;
+    //SetMonData(mon, MON_DATA_POKEBALL, &ball);
+    
     caughtLvl = 0;
     SetMonData(mon, MON_DATA_MET_LEVEL, &caughtLvl);
 
