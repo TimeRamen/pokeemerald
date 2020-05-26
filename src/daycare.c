@@ -418,45 +418,40 @@ static u16 GetEggSpecies(u16 species)
     return species;
 }
 
-static s32 GetParentToInheritNature(struct DayCare *daycare)
+static u8 GetParentToInheritNature(struct DayCare *daycare)
 {
-    u32 species[DAYCARE_MON_COUNT];
-    s32 i;
-    s32 everstoneCount;
-    s32 parent = -1;
-
-    // search for ANY pokemon
-    for (everstoneCount = 0,i = 0; i < DAYCARE_MON_COUNT; i++)
+    u16 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
+    u16 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
+    if(motherItem == ITEM_EVERSTONE && fatherItem == ITEM_EVERSTONE)
     {
-        if (!(GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_HELD_ITEM) != ITEM_EVERSTONE
-       || Random() >= USHRT_MAX))
+    	if (Random() >= USHRT_MAX / 2)
+            return 0;
+        else
+            return 1;
+    }else
+    {
+    	if(motherItem == ITEM_EVERSTONE)
     	{
-        	everstoneCount++;
-                parent = i;
+    		return 0;
+    	}
+    	if(fatherItem == ITEM_EVERSTONE)
+    	{
+    		return 1;
     	}
     }
-
-    // coin flip on ...either parent
-    if (everstoneCount == DAYCARE_MON_COUNT)
-    {
-        if (Random() >= USHRT_MAX / 2)
-            parent = 0;
-        else
-            parent = 1;
-    }
-    return parent;
+    return 2;
 }
 
 static void _TriggerPendingDaycareEgg(struct DayCare *daycare)
 {
-    s32 parent;
+    u8 parent;
     s32 natureTries = 0;
 
     SeedRng2(gMain.vblankCounter2);
     parent = GetParentToInheritNature(daycare);
 
     // don't inherit nature
-    if (parent < 0)
+    if (parent > 1)
     {
         daycare->offspringPersonality = (Random2() << 16) | ((Random() % 0xfffe) + 1);
     }
@@ -522,77 +517,171 @@ static void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv)
 
 static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
 {
-    u8 i;
-    u32 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
-    u32 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
-    u8 iv;
-    if(motherItem == ITEM_DESTINY_KNOT || fatherItem == ITEM_DESTINY_KNOT)
-    {
-        u8 unInheritedIV = Random() % (NUM_STATS);
-        for (i = 0; i < NUM_STATS; i++) {
-            iv = (unInheritedIV != i) ? GetBoxMonData(&daycare->mons[Random() % DAYCARE_MON_COUNT].mon, MON_DATA_HP_IV + i) : Random() % 32;
-            SetMonData(egg, MON_DATA_HP_IV + i, &iv);
-        }
-    }
-    else
-    {
-    
-    u8 selectedIvs[INHERITED_IV_COUNT];
-    u8 whichParents[INHERITED_IV_COUNT];
-    u8 availableIVs[NUM_STATS];
+	u8 i;
+	u8 iv;
+	u8 randomStat;
+	u32 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
+	u32 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
+	u8 ivCount = (motherItem == ITEM_DESTINY_KNOT || fatherItem == ITEM_DESTINY_KNOT) ? DESTINY_KNOT_INHERITED_IV_COUNT : INHERITED_IV_COUNT;
+	u32 powerItems[6] = { ITEM_POWER_WEIGHT, ITEM_POWER_BRACER, ITEM_POWER_BELT, ITEM_POWER_LENS, ITEM_POWER_BAND, ITEM_POWER_ANKLET };
+	u32 motherPowerItem = -1;
+	u32 fatherPowerItem = -1;
+	u8 selectedIvs[ivCount];
+	u8 whichParents[ivCount];
+	u8 availableIVs[NUM_STATS];
 
-    // Initialize a list of IV indices.
-    for (i = 0; i < NUM_STATS; i++)
-    {
-        availableIVs[i] = i;
-    }
+	// check for power items
+	for (i = 0; i < 6; i++)
+	{
+		if (motherItem == powerItems[i])
+		{
+			motherPowerItem = i;
+		}	
 
-    // Select the IVs that will be inherited.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
-    {
-        // Randomly pick an IV from the available list and stop from being chosen again.
-        selectedIvs[i] = availableIVs[Random() % (NUM_STATS - i)];
-        RemoveIVIndexFromList(availableIVs, i);
-    }
+		if (fatherItem == powerItems[i])
+		{
+			fatherPowerItem = i;
+		}
+	}
 
-    // Determine which parent each of the selected IVs should inherit from.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
-    {
-        whichParents[i] = Random() % DAYCARE_MON_COUNT;
-    }
+	// Initialize a list of IV indices.
+	for (i = 0; i < NUM_STATS; i++)
+	{
+		availableIVs[i] = i;
+	}
 
-    // Set each of inherited IVs on the egg mon.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
-    {
-        switch (selectedIvs[i])
-        {
-            case 0:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_HP_IV);
-                SetMonData(egg, MON_DATA_HP_IV, &iv);
-                break;
-            case 1:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_ATK_IV);
-                SetMonData(egg, MON_DATA_ATK_IV, &iv);
-                break;
-            case 2:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_DEF_IV);
-                SetMonData(egg, MON_DATA_DEF_IV, &iv);
-                break;
-            case 3:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPEED_IV);
-                SetMonData(egg, MON_DATA_SPEED_IV, &iv);
-                break;
-            case 4:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPATK_IV);
-                SetMonData(egg, MON_DATA_SPATK_IV, &iv);
-                break;
-            case 5:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPDEF_IV);
-                SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
-                break;
-        }
-    }
-    }
+	// check if both parents have power items
+	if (motherPowerItem != -1 && fatherPowerItem != -1)
+	{
+		// inherit mother's IV
+		selectedIvs[0] = availableIVs[motherPowerItem];
+		RemoveIVIndexFromList(availableIVs, motherPowerItem);
+
+		// if mother < father, father has to be decremented to inherit correct IV
+		if (motherPowerItem < fatherPowerItem)
+		{
+			selectedIvs[1] = availableIVs[fatherPowerItem - 1];
+			RemoveIVIndexFromList(availableIVs, fatherPowerItem - 1);
+		}
+		else
+		{
+			selectedIvs[1] = availableIVs[fatherPowerItem];
+			RemoveIVIndexFromList(availableIVs, fatherPowerItem);
+		}
+
+		// make sure the IV gets inherited from the correct parents
+		whichParents[motherPowerItem] = 0;
+		whichParents[fatherPowerItem] = 1;
+
+		// if both parents have power item, no need for a loop
+		randomStat = Random() % (NUM_STATS - 2);
+		selectedIvs[2] = availableIVs[randomStat];
+		RemoveIVIndexFromList(availableIVs, randomStat);
+
+		// Determine which parent each of the selected IVs should inherit from.
+		for (i = 0; i < ivCount; i++)
+		{
+			if (i != motherPowerItem && i != fatherPowerItem)
+			{
+				whichParents[i] = Random() % DAYCARE_MON_COUNT;
+			}
+		}
+	}
+	// if just the mother has a power item
+	else if (motherPowerItem != -1)
+	{
+		selectedIvs[0] = availableIVs[motherPowerItem];
+		RemoveIVIndexFromList(availableIVs, motherPowerItem);
+
+		// loop for other inherited IVs
+		for (i = 1; i < ivCount; i++)
+		{
+			randomStat = Random() % (NUM_STATS - i);
+			selectedIvs[i] = availableIVs[randomStat];
+			RemoveIVIndexFromList(availableIVs, randomStat);
+		}
+
+		whichParents[motherPowerItem] = 0;
+
+		for (i = 0; i < ivCount; i++)
+		{
+			if (i != motherPowerItem)
+			{
+				whichParents[i] = Random() % DAYCARE_MON_COUNT;
+			}
+		}
+	}
+	// if just the father has a power item
+	else if (fatherPowerItem != -1)
+	{
+		selectedIvs[0] = availableIVs[fatherPowerItem];
+		RemoveIVIndexFromList(availableIVs, fatherPowerItem);
+
+		for (i = 1; i < ivCount; i++)
+		{
+			randomStat = Random() % (NUM_STATS - i);
+			selectedIvs[i] = availableIVs[randomStat];
+			RemoveIVIndexFromList(availableIVs, randomStat);
+		}
+
+		whichParents[fatherPowerItem] = 1;
+
+		for (i = 0; i < ivCount; i++)
+		{
+			if (i != fatherPowerItem)
+			{
+				whichParents[i] = Random() % DAYCARE_MON_COUNT;
+			}
+		}
+	}
+	// otherwise, if no parents have a power item
+	else {
+		for (i = 0; i < ivCount; i++)
+		{
+			// Randomly pick an IV from the available list and stop from being chosen again.
+			randomStat = Random() % (NUM_STATS - i);
+			selectedIvs[i] = availableIVs[randomStat];
+			RemoveIVIndexFromList(availableIVs, randomStat);
+		}
+
+		// Determine which parent each of the selected IVs should inherit from.
+		for (i = 0; i < ivCount; i++)
+		{
+			whichParents[i] = Random() % DAYCARE_MON_COUNT;
+		}
+	}
+
+	// Set each of inherited IVs on the egg mon.
+	for (i = 0; i < ivCount; i++)
+	{
+		switch (selectedIvs[i])
+		{
+		case 0:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_HP_IV);
+			SetMonData(egg, MON_DATA_HP_IV, &iv);
+			break;
+		case 1:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_ATK_IV);
+			SetMonData(egg, MON_DATA_ATK_IV, &iv);
+			break;
+		case 2:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_DEF_IV);
+			SetMonData(egg, MON_DATA_DEF_IV, &iv);
+			break;
+		case 3:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPATK_IV);
+			SetMonData(egg, MON_DATA_SPATK_IV, &iv);
+			break;
+		case 4:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPDEF_IV);
+			SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
+			break;
+		case 5:
+			iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPEED_IV);
+			SetMonData(egg, MON_DATA_SPEED_IV, &iv);
+			break;
+		}
+	}
 }
 
 // Counts the number of egg moves a pokemon learns and stores the moves in

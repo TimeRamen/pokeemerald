@@ -20,6 +20,7 @@
 #include "strings.h"
 #include "task.h"
 #include "tv.h"
+#include "item.h"
 #include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/event_objects.h"
@@ -31,6 +32,7 @@
 #include "constants/songs.h"
 #include "constants/species.h"
 #include "constants/trainer_types.h"
+#include "constants/items.h"
 
 static EWRAM_DATA u8 gUnknown_0203734C = 0;
 EWRAM_DATA struct ObjectEvent gObjectEvents[OBJECT_EVENTS_COUNT] = {};
@@ -138,6 +140,7 @@ static u8 Fishing13(struct Task *task);
 static u8 Fishing14(struct Task *task);
 static u8 Fishing15(struct Task *task);
 static u8 Fishing16(struct Task *task);
+static u8 Fishing17(struct Task *task);
 static void AlignFishingAnimationFrames(void);
 
 static u8 sub_808D38C(struct ObjectEvent *object, s16 *a1);
@@ -1701,6 +1704,7 @@ static bool8 (*const sFishingStateFuncs[])(struct Task *) =
     Fishing14,
     Fishing15,
     Fishing16,
+    Fishing17,
 };
 
 #define tStep              data[0]
@@ -1718,6 +1722,7 @@ static bool8 (*const sFishingStateFuncs[])(struct Task *) =
 #define FISHING_NO_BITE 11
 #define FISHING_GOT_AWAY 12
 #define FISHING_SHOW_RESULT 13
+#define FISHING_ITEM_CATCH 16
 
 void StartFishing(u8 rod)
 {
@@ -1796,9 +1801,11 @@ static bool8 Fishing5(struct Task *task)
     task->tFrameCounter++;
     if (gMain.newKeys & A_BUTTON)
     {
-        task->tStep = FISHING_NO_BITE;
+        //task->tStep = FISHING_NO_BITE;
+        task->tStep = FISHING_ITEM_CATCH;
         if (task->tRoundsPlayed != 0)
-            task->tStep = FISHING_GOT_AWAY;
+            //task->tStep = FISHING_GOT_AWAY;
+            task->tStep = FISHING_ITEM_CATCH;
         return TRUE;
     }
     else
@@ -1843,15 +1850,16 @@ static bool8 Fishing6(struct Task *task)
             u8 ability = GetMonAbility(&gPlayerParty[0]);
             if (ability == ABILITY_SUCTION_CUPS || ability  == ABILITY_STICKY_HOLD)
             {
-                if (Random() % 100 > 14)
-                {
+                //if (Random() % 100 > 14)
+                //{
                     bite = TRUE;
-                }
+                //}
             }
         }
 
         if (!bite)
         {
+        /*
             if (Random() & 1)
             {
                 task->tStep = FISHING_NO_BITE;
@@ -1859,6 +1867,22 @@ static bool8 Fishing6(struct Task *task)
             else
             {
                 bite = TRUE;
+            }
+            */
+            //u8 randCheck = Random()%20;
+            //u8 randCheck = 0;
+            u8 randCheck = Random()%20;
+            if (randCheck == 0)
+            {
+                //get an item!
+                task->tStep = FISHING_ITEM_CATCH;
+            }
+            else if(randCheck < 15){
+            	bite = TRUE;
+            }
+            else
+            {
+                task->tStep = FISHING_NO_BITE;
             }
         }
 
@@ -2028,6 +2052,19 @@ static bool8 Fishing16(struct Task *task)
         DestroyTask(FindTaskIdByFunc(Task_Fishing));
     }
     return FALSE;
+}
+
+static bool8 Fishing17(struct Task *task)
+{
+    AlignFishingAnimationFrames();
+    StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
+    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    AddTextPrinterParameterized2(0, 1, gText_FishedItem, 1, 0, 2, 1, 3);
+    AddBagItem(152, 1);
+    //CopyItemName
+    task->tStep = FISHING_SHOW_RESULT;
+    return TRUE;
+
 }
 
 #undef tStep

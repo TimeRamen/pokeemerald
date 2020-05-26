@@ -1000,6 +1000,7 @@ extern const u8 gText_ShopQuit[];
 extern const u8 gText_OhABite[];
 extern const u8 gText_PokemonOnHook[];
 extern const u8 gText_NotEvenANibble[];
+extern const u8 gText_FishedItem[];
 extern const u8 gText_ItGotAway[];
 
 extern const u8 gText_HallOfFame[];
