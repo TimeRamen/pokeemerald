@@ -2495,12 +2495,38 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         {
             u32 shinyValue;
             u32 rolls = 0;
+            
+            do
+            {
+                if (hasFixedPersonality)
+                {
+                    u8 wantedNature = GetNatureFromPersonality(fixedPersonality);
+                    s32 natureTries = 0;
+
+                    do
+                    {
+                        personality = (Random2() << 16) | (Random());
+                        if (wantedNature == GetNatureFromPersonality(personality) && personality != 0)
+                            break; // found a personality with the same nature
+
+                        natureTries++;
+                    } while (natureTries <= 2400);
+
+                }
+                else {
+                    personality = Random32();
+                }
+
+                shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
+                rolls++;
+            } while (shinyValue >= SHINY_ODDS && rolls < SHINY_CHARM_REROLLS);
+            /*
             do
             {
                 personality = Random32();
                 shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
                 rolls++;
-            } while (shinyValue >= SHINY_ODDS && rolls < SHINY_CHARM_REROLLS);
+            } while (shinyValue >= SHINY_ODDS && rolls < SHINY_CHARM_REROLLS);*/
         }
     }
 

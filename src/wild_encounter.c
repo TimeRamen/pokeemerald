@@ -679,6 +679,36 @@ bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavi
 
 void RockSmashWildEncounter(void)
 {
+/*
+u16 fossils[] =
+{
+	ITEM_ARMOR_FOSSIL,
+	ITEM_SKULL_FOSSIL,
+	ITEM_PLUME_FOSSIL,
+	ITEM_JAW_FOSSIL,
+	ITEM_SAIL_FOSSIL,
+	ITEM_OLD_AMBER
+	};
+	u16 itemToBeAdded;
+	itemToBeAdded = fossils[Random()%6];
+	FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    AddTextPrinterParameterized2(0, 1, gText_FishedItem, 1, 0, 2, 1, 3);
+    
+    AddBagItem(itemToBeAdded, 1);
+    
+    RunTextPrinters();
+    if (!IsTextPrinterActive(0))
+    {
+        gPlayerAvatar.preventStep = FALSE;
+        ScriptContext2_Disable();
+        UnfreezeObjectEvents();
+        ClearDialogWindowAndFrame(0, TRUE);
+        sub_80ED950(0);
+        //DestroyTask(FindTaskIdByFunc(Task_Fishing));
+    }
+    
+    
+	*/
     u16 headerId = GetCurrentMapWildMonHeaderId();
 
     if (headerId != 0xFFFF)

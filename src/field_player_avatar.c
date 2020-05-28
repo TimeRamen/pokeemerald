@@ -18,6 +18,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "strings.h"
+#include "script.h"
 #include "task.h"
 #include "tv.h"
 #include "item.h"
@@ -33,6 +34,9 @@
 #include "constants/species.h"
 #include "constants/trainer_types.h"
 #include "constants/items.h"
+#include "event_data.h"
+
+extern const u8 Std_ObtainItem[];
 
 static EWRAM_DATA u8 gUnknown_0203734C = 0;
 EWRAM_DATA struct ObjectEvent gObjectEvents[OBJECT_EVENTS_COUNT] = {};
@@ -616,7 +620,7 @@ static void PlayerNotOnBikeTurningInPlace(u8 direction, u16 heldKeys)
 
 static bool8 IsPlayerTryingToRun(u16 heldKeys)
 {
-  if (gSaveBlock2Ptr->optionsButtonMode)
+  if (gSaveBlock2Ptr->autoRun)
     return TRUE;
   else if (heldKeys & B_BUTTON)
       return TRUE;
@@ -1859,25 +1863,14 @@ static bool8 Fishing6(struct Task *task)
 
         if (!bite)
         {
-        /*
-            if (Random() & 1)
-            {
-                task->tStep = FISHING_NO_BITE;
-            }
-            else
-            {
-                bite = TRUE;
-            }
-            */
-            //u8 randCheck = Random()%20;
-            //u8 randCheck = 0;
-            u8 randCheck = Random()%20;
+        
+            u8 randCheck = Random()%10;
             if (randCheck == 0)
             {
                 //get an item!
                 task->tStep = FISHING_ITEM_CATCH;
             }
-            else if(randCheck < 15){
+            else if(randCheck < 7){
             	bite = TRUE;
             }
             else
@@ -2056,16 +2049,53 @@ static bool8 Fishing16(struct Task *task)
 
 static bool8 Fishing17(struct Task *task)
 {
+    u16 itemToBeAdded;
+    //gems are from 339 to 356
+    //other items 120 to 125
+    //70 to 93 battle items + rare candy + ability capsule
+    //fossils : 445 to 454
+    /*
+	
+	
+	*/
+	u16 fossils[] =
+	{
+	ITEM_HELIX_FOSSIL,
+	ITEM_DOME_FOSSIL,
+	ITEM_COVER_FOSSIL,
+	ITEM_ROOT_FOSSIL,
+	ITEM_CLAW_FOSSIL
+	};
+    u8 randNum = Random()%20;    
+    if(randNum == 0){
+    	itemToBeAdded = 93;
+    }else if(randNum < 17){
+    	itemToBeAdded = 120 + Random()%6;
+    }else{
+    //fossils
+    	itemToBeAdded = fossils[Random()%5];
+    	//itemToBeAdded = 445 + Random()%10;//change ten to the amount of fossils we include.
+    }
+    
+    
     AlignFishingAnimationFrames();
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     AddTextPrinterParameterized2(0, 1, gText_FishedItem, 1, 0, 2, 1, 3);
-    AddBagItem(152, 1);
-    //CopyItemName
+    
+    AddBagItem(itemToBeAdded, 1);
+    
+    //gSpecialVar_0x8000 = itemToBeAdded;
+    //gSpecialVar_0x8001 = 1;
+    
+    //Std_ObtainItem = &itemToBeAdded;
+    //ScriptContext1_SetupScript(Std_ObtainItem);
     task->tStep = FISHING_SHOW_RESULT;
     return TRUE;
 
 }
+    //CopyItemName(ITEM_LUM_BERRY,Std_ObtainItem);
+    //AddTextPrinterParameterized2(0, 1, gText_PlayerFoundOneItem, 1, 0, 2, 1, 3);
 
 #undef tStep
 #undef tFrameCounter
