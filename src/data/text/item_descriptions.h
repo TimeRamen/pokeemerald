@@ -2793,3 +2793,8 @@ static const u8 sShinyCharmDesc[] = _(
 	"A charm that will\n"
     "raise the chance\n"
     "of Shiny Pokémon.");
+    
+static const u8 sSuppressorDesc[] = _(
+	"A held item that\n"
+    "suppresses the\n"
+    "Pokémon's ability.");

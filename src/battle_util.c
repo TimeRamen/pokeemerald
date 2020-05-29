@@ -35,6 +35,15 @@
 #include "constants/species.h"
 #include "constants/weather.h"
 
+/*
+
+if you are holding ITEM_SUPPRESSOR
+then return ABILITY_NONE
+
+
+*/
+
+
 // rom const data
 
 static const u8 sAbilitiesAffectedByMoldBreaker[] =
@@ -4072,7 +4081,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
 
 u32 GetBattlerAbility(u8 battlerId)
 {
-    if (gStatuses3[battlerId] & STATUS3_GASTRO_ACID)
+//suppressor ITEM_SUPPRESSOR
+    if (gStatuses3[battlerId] & STATUS3_GASTRO_ACID || gBattleMons[battlerId].item == ITEM_SUPPRESSOR)
         return ABILITY_NONE;
     else if ((((gBattleMons[gBattlerAttacker].ability == ABILITY_MOLD_BREAKER
             || gBattleMons[gBattlerAttacker].ability == ABILITY_TERAVOLT
