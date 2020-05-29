@@ -1519,9 +1519,6 @@ const u32 gItemIconPalette_BugTMHM[] = INCBIN_U32("graphics/items/icon_palettes/
 
 const u32 gItemIconPalette_FairyTMHM[] = INCBIN_U32("graphics/items/icon_palettes/fairy_tm_hm.gbapal.lz");
 
-
-
-
-const u32 gItemIcon_Suppressor[] = INCBIN_U32("graphics/items/icons/pp_max.4bpp.lz");
-const u32 gItemIconPalette_Suppressor[] = INCBIN_U32("graphics/items/icon_palettes/zinc.gbapal.lz");
+//const u32 gItemIcon_Suppressor[] = INCBIN_U32("graphics/items/icons/pp_max.4bpp.lz");
+//const u32 gItemIconPalette_Suppressor[] = INCBIN_U32("graphics/items/icon_palettes/zinc.gbapal.lz");
 
