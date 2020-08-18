@@ -166,6 +166,7 @@ void Rain_Main(void);
 void Rain_InitAll(void);
 bool8 Rain_Finish(void);
 void Snow_InitVars(void);
+void Hail_InitVars(void);
 void Snow_Main(void);
 void Snow_InitAll(void);
 bool8 Snow_Finish(void);
