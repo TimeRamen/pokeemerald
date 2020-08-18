@@ -16,6 +16,7 @@
 #include "task.h"
 #include "trig.h"
 #include "gpu_regs.h"
+#include "field_camera.h"
 
 #define DROUGHT_COLOR_INDEX(color) ((((color) >> 1) & 0xF) | (((color) >> 2) & 0xF0) | (((color) >> 3) & 0xF00))
 
@@ -94,6 +95,7 @@ static const struct WeatherCallbacks sWeatherFuncs[] =
     [WEATHER_SUNNY]              = {Sunny_InitVars,         Sunny_Main,         Sunny_InitAll,         Sunny_Finish},
     [WEATHER_RAIN]               = {Rain_InitVars,          Rain_Main,          Rain_InitAll,          Rain_Finish},
     [WEATHER_SNOW]               = {Snow_InitVars,          Snow_Main,          Snow_InitAll,          Snow_Finish},
+    [WEATHER_HAIL]               = {Hail_InitVars,          Snow_Main,          Snow_InitAll,          Snow_Finish},
     [WEATHER_RAIN_THUNDERSTORM]  = {Thunderstorm_InitVars,  Thunderstorm_Main,  Thunderstorm_InitAll,  Thunderstorm_Finish},
     [WEATHER_FOG_HORIZONTAL]     = {FogHorizontal_InitVars, FogHorizontal_Main, FogHorizontal_InitAll, FogHorizontal_Finish},
     [WEATHER_VOLCANIC_ASH]       = {Ash_InitVars,           Ash_Main,           Ash_InitAll,           Ash_Finish},
@@ -225,6 +227,7 @@ static void Task_WeatherInit(u8 taskId)
     // When the screen fades in, this is set to TRUE.
     if (gWeatherPtr->readyForInit)
     {
+    	UpdateCameraPanning();
         sWeatherFuncs[gWeatherPtr->currWeather].initAll();
         gTasks[taskId].func = Task_WeatherMain;
     }

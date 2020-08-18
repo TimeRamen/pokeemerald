@@ -771,8 +771,18 @@ void Snow_InitVars(void)
     gWeatherPtr->weatherGfxLoaded = FALSE;
     gWeatherPtr->gammaTargetIndex = 3;
     gWeatherPtr->gammaStepDelay = 20;
-    gWeatherPtr->targetSnowflakeSpriteCount = 16;
+    gWeatherPtr->targetSnowflakeSpriteCount = 16; //change this for more snow 
     gWeatherPtr->snowflakeVisibleCounter = 0;
+}
+
+void Hail_InitVars(void)
+{
+    gWeatherPtr->initStep = 0;
+    gWeatherPtr->weatherGfxLoaded = FALSE;
+    gWeatherPtr->gammaTargetIndex = 3;
+    gWeatherPtr->gammaStepDelay = 20;
+    gWeatherPtr->targetSnowflakeSpriteCount = 32; //change this for more snow 
+    gWeatherPtr->snowflakeVisibleCounter = 8;
 }
 
 void Snow_InitAll(void)
@@ -970,7 +980,7 @@ static void UpdateSnowflakeSprite(struct Sprite *sprite)
         sprite->pos1.x = 242 - (gSpriteCoordOffsetX + sprite->centerToCornerVecX);
     else if (x > 242)
         sprite->pos1.x = -3 - (gSpriteCoordOffsetX + sprite->centerToCornerVecX);
-
+/*
     y = (sprite->pos1.y + sprite->centerToCornerVecY + gSpriteCoordOffsetY) & 0xFF;
     if (y > 163 && y < 171)
     {
@@ -996,6 +1006,7 @@ static void UpdateSnowflakeSprite(struct Sprite *sprite)
         sprite->invisible = TRUE;
         sprite->callback = WaitSnowflakeSprite;
     }
+    */
 }
 
 #undef tPosY
@@ -2551,6 +2562,7 @@ static u8 TranslateWeatherNum(u8 weather)
     case WEATHER_SUNNY:              return WEATHER_SUNNY;
     case WEATHER_RAIN:               return WEATHER_RAIN;
     case WEATHER_SNOW:               return WEATHER_SNOW;
+    case WEATHER_HAIL:               return WEATHER_HAIL;
     case WEATHER_RAIN_THUNDERSTORM:  return WEATHER_RAIN_THUNDERSTORM;
     case WEATHER_FOG_HORIZONTAL:     return WEATHER_FOG_HORIZONTAL;
     case WEATHER_VOLCANIC_ASH:       return WEATHER_VOLCANIC_ASH;

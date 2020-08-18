@@ -2925,6 +2925,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         effect++;
                     }
                     break;
+                    
+                //case WEATHER_SNOW:
+                case WEATHER_HAIL:
+			if (!(gBattleWeather & WEATHER_HAIL_ANY))
+			{
+		 		gBattleWeather = WEATHER_HAIL_ANY;
+		 		gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
+				gBattleScripting.battler = battler;
+				effect++;
+			}
+	break;
                 }
             }
             if (effect)
