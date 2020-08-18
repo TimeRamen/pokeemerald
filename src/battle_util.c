@@ -3107,6 +3107,56 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 effect++;
             }
             break;
+            //we can add a trick room ability code right here :)
+            /*
+            //it probably isnt a battle terrain per se.
+            case ABILITY_TRICKY_SURGE:
+            if (TryChangeBattleTerrain(battler, STATUS_FIELD_TRICK_ROOM, &gFieldTimers.trickRoomTimer))
+            {
+                BattleScriptPushCursorAndCallback(BattleScript_TrickRoomActivates);
+                //trickroomactivates does not exist... please look into the battle_scripts.h and battle_scripts.c to change that. this is basically the text that will play.
+                effect++;
+            }
+            break;
+            
+            
+            case ENDTURN_TRICK_ROOM:
+            if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM && --gFieldTimers.trickRoomTimer == 0)
+            {
+                gFieldStatuses &= ~(STATUS_FIELD_TRICK_ROOM);
+                BattleScriptExecute(BattleScript_TrickRoomEnds);
+                effect++;
+            }
+            gBattleStruct->turnCountersTracker++;
+            
+            //we can also add chivalry code right here :)
+            
+            
+            case ABILITY_CHIVALRY:
+            if (TryChangeBattleTerrain(battler, STATUS_FIELD_ELECTRIC_TERRAIN, &gFieldTimers.electricTerrainTimer))
+            {
+                BattleScriptPushCursorAndCallback(BattleScript_ChivalryActivates);
+                effect++;
+            }
+            break;
+            
+            if (gDisableStructs[gActiveBattler].tauntTimer != 0 && gBattleMoves[move].power == 0)
+    {
+        gCurrentMove = move;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gPalaceSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveTauntInPalace;
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = 1;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveTaunt;
+            limitations++;
+        }
+    }
+            
+            
+            */
         case ABILITY_ELECTRIC_SURGE:
             if (TryChangeBattleTerrain(battler, STATUS_FIELD_ELECTRIC_TERRAIN, &gFieldTimers.electricTerrainTimer))
             {
@@ -5709,6 +5759,14 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
         if (gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
            MulModifier(&modifier, UQ_4_12(1.2));
         break;
+        //we can do similar for aura punch
+        /*
+        case ABILITY_AURA_FIST:
+        if (gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
+           MulModifier(&modifier, UQ_4_12(1.2));
+        break;
+        
+        */
     case ABILITY_SHEER_FORCE:
         if (gBattleMoves[move].flags & FLAG_SHEER_FORCE_BOOST)
            MulModifier(&modifier, UQ_4_12(1.3));
@@ -6131,6 +6189,7 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
 
     if (gBattleMoves[move].effect == EFFECT_PSYSHOCK || IS_MOVE_PHYSICAL(move)) // uses defense stat instead of sp.def
     {
+    //add an extra statement that checks for aura punch boolean? perhaps?? idk
         defStat = def;
         defStage = gBattleMons[battlerDef].statStages[STAT_DEF];
         usesDefStat = TRUE;
@@ -6548,6 +6607,7 @@ u16 GetTypeModifier(u8 atkType, u8 defType)
 
 s32 GetStealthHazardDamage(u8 hazardType, u8 battlerId)
 {
+//heavy duty boots
     u8 type1 = gBattleMons[battlerId].type1;
     u8 type2 = gBattleMons[battlerId].type2;
     u32 maxHp = gBattleMons[battlerId].maxHP;

@@ -5433,6 +5433,7 @@ static void HandleAction_UseItem(void)
 }
 
 bool8 TryRunFromBattle(u8 battler)
+//escape button 
 {
     bool8 effect = FALSE;
     u8 holdEffect;
@@ -5490,9 +5491,18 @@ bool8 TryRunFromBattle(u8 battler)
             if (speedVar > (Random() & 0xFF))
                 effect++;
         }
-        else if (gBattleMons[battler].speed < gBattleMons[runningFromBattler].speed)
+        //change this code
+/*  
+      else if (gBattleMons[battler].speed < gBattleMons[runningFromBattler].speed)
         {
+        
             speedVar = (gBattleMons[battler].speed * 128) / (gBattleMons[runningFromBattler].speed) + (gBattleStruct->runTries * 30);
+            if (speedVar > (Random() & 0xFF))
+                effect++;
+                */
+        else if (gBattleMons[battler].level < gBattleMons[runningFromBattler].level)
+        {
+                speedVar = (gBattleMons[battler].level * 128) / (gBattleMons[runningFromBattler].level) + (gBattleStruct->runTries * 30);
             if (speedVar > (Random() & 0xFF))
                 effect++;
         }
@@ -5514,6 +5524,7 @@ bool8 TryRunFromBattle(u8 battler)
 }
 
 static void HandleAction_Run(void)
+//run / escape 
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
 

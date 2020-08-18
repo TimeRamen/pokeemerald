@@ -591,5 +591,5 @@ const u32 *const gItemIconTable[][2] =
     [ITEM_WATER_MEMORY] = {gItemIcon_WaterMemory, gItemIconPalette_WaterMemory},
     //new items
 //    [ITEM_SUPPRESSOR] = {gItemIcon_Suppressor, gItemIconPalette_Suppressor},
-    [ITEM_SUPPRESSOR] = {gItemIcon_PPMax, gItemIconPalette_Zinc},
+    [ITEM_SUPPRESSOR] = {gItemIcon_ExpertBelt, gItemIconPalette_DestinyKnot},
 };
